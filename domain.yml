@@ -2,29 +2,29 @@ version: "3.1"
 
 intents:
   - greet
+  - set_game_name
   - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
+
+entities:
+  - GAME_TITLE
+
+slots:
+  GAME_TITLE:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: GAME_TITLE
 
 responses:
   utter_greet:
-  - text: "Привет! Я - бот, который поможет считать очки в настольниых играх. Начнем с  названия игры?"
+    - text: "Привет! Я - бот, который поможет считать очки в настольниых играх. Начнем с  названия игры?"
 
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
+  utter_set_game_name:
+    - text: "Название игры установлено: {GAME_TITLE}"
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "Пока"
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
