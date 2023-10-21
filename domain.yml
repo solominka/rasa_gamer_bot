@@ -1,33 +1,65 @@
-version: "3.1"
-
+version: '3.1'
 intents:
+  - add_points
+  - bot_challenge
+  - goodbye
   - greet
   - set_game_name
-  - goodbye
-  - bot_challenge
+  - set_names
+  - add_unknown_player
+  - okay
+
+actions:
+  - utter_greet
+  - action_set_names
+  - utter_set_game_name
+  - action_add_points
+  - action_add_unknown_player
 
 entities:
+  - NAME
+  - POINTS
   - GAME_TITLE
 
 slots:
   GAME_TITLE:
     type: text
     mappings:
-    - type: from_entity
-      entity: GAME_TITLE
+      - type: from_entity
+        entity: GAME_TITLE
+  CURRENT_SCORE:
+    type: any
+    mappings:
+      - type: custom
+  NAMES_LIST:
+    type: list
+    mappings:
+      - type: from_entity
+        entity: NAME
+  NAME:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: NAME
+  POINTS:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: POINTS
 
 responses:
   utter_greet:
-    - text: "Привет! Я - бот, который поможет считать очки в настольниых играх. Начнем с  названия игры?"
-
+    - text: Привет! Я - бот, который поможет считать очки в настольных играх. Давай начнём с названия игры
+  utter_setup_completed:
+    - text: Готово, теперь можно добавлять или вычитать баллы. Сейчас у всех по нулям
   utter_set_game_name:
-    - text: "Название игры установлено: {GAME_TITLE}"
-
+    - text: 'Название игры установлено: {GAME_TITLE}. Запишем имена участников?'
   utter_goodbye:
-  - text: "Пока"
-
+    - text: Пока
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+    - text: Я бот, написанный на Rasa.
+  utter_okay:
+    - text: Хорошо, продолжаем!
 
 session_config:
   session_expiration_time: 60
