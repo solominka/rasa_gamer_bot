@@ -34,7 +34,7 @@ class ActionAddPoints(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         name = normalize_name(str(tracker.get_slot('NAME')))
-        points = abs(int(tracker.get_slot('POINTS')))
+        points = int(tracker.get_slot('POINTS'))
         current_score = get_current_score(tracker)
 
         logging.info("ActionAddPoints: name: {0}, points: {1}, current_score: {2}".format(name, points, current_score))
@@ -111,7 +111,6 @@ morph = pymorphy2.MorphAnalyzer(lang='ru')
 
 def normalize_name(name: string):
     return morph.parse(name)[0].normal_form.title()
-    # return morph.parse(name)[0].inflect('nomn').word
 
 
 def get_points_for_number(number: int):
