@@ -11,7 +11,7 @@ stories:
         - GAME_TITLE
       - action: utter_set_game_name
       - intent: set_names
+      - action: action_set_names
       - slot_was_set:
         - NAMES_LIST
-      - action: action_set_names
       - action: utter_setup_completed

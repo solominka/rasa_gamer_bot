@@ -54,6 +54,35 @@ class ActionAddPoints(Action):
         dispatcher.utter_message(text="Добавил {0} {1} игроку {2}".format(points, get_points_for_number(points), name))
         return [SlotSet("CURRENT_SCORE", current_score)]
 
+class ActionRemovePoints(Action):
+
+    def name(self) -> Text:
+        return "action_remove_points"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        name = normalize_name(str(tracker.get_slot('NAME')))
+        points = abs(int(tracker.get_slot('POINTS')))
+        current_score = get_current_score(tracker)
+
+        logging.info("ActionRemovePoints: name: {0}, points: {1}, current_score: {2}".format(name, points, current_score))
+
+        if not current_score.__contains__(name):
+            dispatcher.utter_message(
+                text="Не нашел игрока с именем {0} в таблице, добавить?".format(name),
+                buttons=[
+                    {"payload": "/add_unknown_player", "title": "Да"},
+                    {"payload": "/okay", "title": "Нет"},
+                ]
+            )
+            return []
+        else:
+            current_score[name] -= points
+
+        dispatcher.utter_message(text="Снял {0} {1} игроку {2}".format(points, get_points_for_number(points), name))
+        return [SlotSet("CURRENT_SCORE", current_score)]
+
 
 class ActionAddUnknownPlayer(Action):
 

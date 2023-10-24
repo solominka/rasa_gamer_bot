@@ -24,27 +24,47 @@ nlu:
       - [Вика](NAME), [Ксения](NAME),[Любовь](NAME), [Надежда](NAME), [Михаил](NAME)
       - да, давай - [дима](NAME), [егор](NAME),[антон](NAME), [игорь](NAME), [маша](NAME)
       - [аня](NAME), [катя](NAME), [маша](NAME)
+      - [аня](NAME) [катя](NAME) [маша](NAME)
   - intent: set_game_name
     examples: |
       - [манчкин](GAME_TITLE)
       - [колонизаторы](GAME_TITLE)
+      - [монополия](GAME_TITLE)
       - [шашки](GAME_TITLE)
       - [шахматы](GAME_TITLE)
       - [игра](GAME_TITLE)
+      - [дурак](GAME_TITLE)
+      - [дота](GAME_TITLE)
+      - [кс](GAME_TITLE)
+      - [волейбол](GAME_TITLE)
+      - [настольный теннис](GAME_TITLE)
+      - [взрывные котята](GAME_TITLE)
+      - [лысый бурундук](GAME_TITLE)
       - игра называется [манчкин](GAME_TITLE)
       - называется [манчкин](GAME_TITLE)
       - название игры [манчкин](GAME_TITLE)
       - название [манчкин](GAME_TITLE)
+      - игра [манчкин](GAME_TITLE)
       - название игры - [манчкин](GAME_TITLE)
       - моя игра называется [манчкин](GAME_TITLE)
   - intent: add_points
     examples: |
-      - добавь [5](POINTS) очков [Анне](NAME)
+      - добавь [5](POINTS) [Анне](NAME)
       - [60](POINTS) баллов [Сергею](NAME)
       - плюс [1](POINTS) [Марии](NAME)
       - [Ольге](NAME) [56](POINTS)
       - [67](POINTS) [Маше](NAME)
       - [+6](POINTS) [саше](NAME)
+  - intent: remove_points
+    examples: |
+      - отними [5](POINTS) очков у [Анны](NAME)
+      - сними [5](POINTS) [Анне](NAME)
+      - убери [5](POINTS) очков [Рите](NAME)
+      - [-60](POINTS) баллов [Сергею](NAME)
+      - [-60](POINTS) очков [Сергею](NAME)
+      - минус [1](POINTS) [Марии](NAME)
+      - [Ольге](NAME) [-56](POINTS)
+      - [-6](POINTS) [саше](NAME)
   - intent: goodbye
     examples: |
       - пока

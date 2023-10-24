@@ -17,6 +17,11 @@ rules:
       - intent: add_points
       - action: action_add_points
 
+  - rule: Remove points
+    steps:
+      - intent: remove_points
+      - action: action_remove_points
+
   - rule: Add unknown player
     steps:
       - intent: add_unknown_player
