@@ -62,6 +62,8 @@ responses:
     - text: Я бот, написанный на Rasa.
   utter_okay:
     - text: Хорошо, продолжаем!
+  utter_nlu_fallback:
+    - text: "К сожалению, я не понял. Вот примеры команд, которые я знаю:\nДобавь 5 баллов Вике\n-5 Ольге"
 
 session_config:
   session_expiration_time: 60

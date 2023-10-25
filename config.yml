@@ -25,6 +25,8 @@ pipeline:
   dimensions: ["PERSON"]
 - name: DIETClassifier
   epochs: 100
+- name: FallbackClassifier
+  threshold: 0.7
 # # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.
 # # If you'd like to customize it, uncomment and adjust the pipeline.
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
