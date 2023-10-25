@@ -12,6 +12,7 @@ intents:
   - show_score
   - continue
   - stop
+  - restart
 
 actions:
   - utter_greet
@@ -22,6 +23,7 @@ actions:
   - action_add_unknown_player
   - action_show_score
   - validate_form_game_info
+  - action_restart
 
 entities:
   - PERSON
@@ -64,6 +66,8 @@ forms:
 responses:
   utter_greet:
     - text: Привет! Я - бот, который поможет считать очки в настольных играх. Давай начнём с настройки игры
+  utter_greet_on_restart:
+    - text: Давай ее настроим
   utter_setup_completed:
     - text: Готово, теперь можно добавлять или вычитать баллы. Сейчас у всех по нулям
   utter_set_game_name:

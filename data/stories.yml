@@ -21,3 +21,11 @@ stories:
   - intent: continue
   - action: form_game_info
   - active_loop: form_game_info
+
+- story: Restart game
+  steps:
+  - intent: restart
+  - action: action_restart
+  - action: utter_greet_on_restart
+  - action: form_game_info
+  - active_loop: form_game_info

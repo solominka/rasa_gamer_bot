@@ -43,6 +43,25 @@ class ActionShowScore(Action):
         return []
 
 
+class ActionRestartGame(Action):
+
+    def name(self) -> Text:
+        return "action_restart"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(text="Окей, начал новую игру")
+
+        return [
+            SlotSet("GAME_TITLE", None),
+            SlotSet("CURRENT_SCORE", None),
+            SlotSet("NAMES_LIST", None),
+            SlotSet("NAME", None),
+            SlotSet("POINTS", None),
+        ]
+
+
 class ActionAddPoints(Action):
 
     def name(self) -> Text:
