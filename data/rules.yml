@@ -36,3 +36,8 @@ rules:
     steps:
       - intent: okay
       - action: utter_okay
+
+  - rule: Handle out-of-scope intent
+    steps:
+      - intent: nlu_fallback
+      - action: utter_nlu_fallback

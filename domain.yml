@@ -21,7 +21,7 @@ actions:
   - action_show_score
 
 entities:
-  - NAME
+  - PERSON
   - POINTS
   - GAME_TITLE
 
@@ -39,12 +39,12 @@ slots:
     type: list
     mappings:
       - type: from_entity
-        entity: NAME
+        entity: PERSON
   NAME:
     type: text
     mappings:
       - type: from_entity
-        entity: NAME
+        entity: PERSON
   POINTS:
     type: text
     mappings:
@@ -64,6 +64,8 @@ responses:
     - text: Я бот, написанный на Rasa.
   utter_okay:
     - text: Хорошо, продолжаем!
+  utter_nlu_fallback:
+    - text: "К сожалению, я не понял. Вот примеры команд, которые я знаю:\nДобавь 5 баллов Вике\n-5 Ольге"
 
 session_config:
   session_expiration_time: 60
