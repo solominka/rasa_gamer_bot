@@ -22,6 +22,11 @@ rules:
       - intent: remove_points
       - action: action_remove_points
 
+  - rule: Show score
+    steps:
+      - intent: show_score
+      - action: action_show_score
+      
   - rule: Add unknown player
     steps:
       - intent: add_unknown_player

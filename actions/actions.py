@@ -24,6 +24,19 @@ class ActionSetNames(Action):
 
         return [SlotSet("CURRENT_SCORE", {name: 0 for name in normalized_names})]
 
+class ActionShowScore(Action):
+
+    def name(self) -> Text:
+        return "action_show_score"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        score_list = get_current_score(tracker)
+
+        dispatcher.utter_message(text="Счет на текущий момент: " + ", ".join(normalize_score(score_list)))
+
+        return []
 
 class ActionAddPoints(Action):
 
@@ -108,6 +121,12 @@ class ActionAddUnknownPlayer(Action):
 
 morph = pymorphy2.MorphAnalyzer(lang='ru')
 
+def normalize_score(score: string):
+    result = []
+    keysList = list(score.keys())
+    for el in range(len(keysList)):
+        result.append("{0} - {1}".format(keysList[el], score[keysList[el]]))
+    return result
 
 def normalize_name(name: string):
     return morph.parse(name)[0].normal_form.title()

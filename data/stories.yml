@@ -15,3 +15,5 @@ stories:
       - slot_was_set:
         - NAMES_LIST
       - action: utter_setup_completed
+      - intent: show_score
+      - action: action_show_score

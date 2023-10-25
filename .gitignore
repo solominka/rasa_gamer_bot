@@ -113,3 +113,5 @@ models
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/rasa_project .iml
 /.idea/vcs.xml
+
+venv/

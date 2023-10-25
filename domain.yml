@@ -9,6 +9,7 @@ intents:
   - set_names
   - add_unknown_player
   - okay
+  - show_score
 
 actions:
   - utter_greet
@@ -17,6 +18,7 @@ actions:
   - action_add_points
   - action_remove_points
   - action_add_unknown_player
+  - action_show_score
 
 entities:
   - NAME

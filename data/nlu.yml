@@ -65,6 +65,10 @@ nlu:
       - минус [1](POINTS) [Марии](NAME)
       - [Ольге](NAME) [-56](POINTS)
       - [-6](POINTS) [саше](NAME)
+  - intent: show_score
+    examples: |
+      - какой счет?
+      - счет
   - intent: goodbye
     examples: |
       - пока
