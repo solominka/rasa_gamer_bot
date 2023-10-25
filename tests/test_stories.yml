@@ -1,91 +1,77 @@
-#### This file contains tests to evaluate that your bot behaves as expected.
-#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
-
 stories:
-- story: happy path 1
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
+  - story: happy path
+    steps:
+      - intent: greet
+        user: |-
+          привет
+      - action: utter_greet
 
-- story: happy path 2
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
+      - intent: set_game_name
+        user: |-
+          [колонизаторы](GAME_TITLE)
+      - slot_was_set:
+          - GAME_TITLE: колонизаторы
+      - action: utter_set_game_name
 
-- story: sad path 1
-  steps:
-  - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      yes
-    intent: affirm
-  - action: utter_happy
+      - intent: set_names
+        user: |-
+          [анна](PERSON), [ксения](PERSON), [алена](PERSON)
+      - slot_was_set:
+          - NAMES_LIST:
+              - анна
+              - ксения
+              - алена
+      - slot_was_set:
+          - NAME: алена
+      - action: action_set_names
+      - slot_was_set:
+          - CURRENT_SCORE:
+              Анна: 0
+              Ксения: 0
+              Ален: 0
+      - action: utter_setup_completed
 
-- story: sad path 2
-  steps:
-  - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      not really
-    intent: deny
-  - action: utter_goodbye
+      - intent: add_points
+        user: |-
+          добавь [67](POINTS) [ксении](PERSON)
+      - action: action_add_points
+      - slot_was_set:
+          - CURRENT_SCORE:
+              Анна: 0
+              Ксения: 67
+              Ален: 0
 
-- story: sad path 3
-  steps:
-  - user: |
-      hi
-    intent: greet
-  - action: utter_greet
-  - user: |
-      very terrible
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
+      - intent: add_points
+        user: |-
+          плюс [7](POINTS) баллов игроку [анна](PERSON)
+      - action: action_add_points
+      - slot_was_set:
+          - CURRENT_SCORE:
+              Анна: 7
+              Ксения: 67
+              Ален: 0
 
-- story: say goodbye
-  steps:
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
+      - intent: remove_points
+        user: |-
+          вычти [9](POINTS) у [ксении](PERSON)
+      - action: action_remove_points
+      - slot_was_set:
+          - CURRENT_SCORE:
+              Анна: 7
+              Ксения: 58
+              Ален: 0
 
-- story: bot challenge
-  steps:
-  - user: |
-      are you a bot?
-    intent: bot_challenge
-  - action: utter_iamabot
+      - intent: remove_points
+        user: |-
+          минус [1](POINTS) [анна](PERSON)
+      - action: action_remove_points
+      - slot_was_set:
+          - CURRENT_SCORE:
+              Анна: 6
+              Ксения: 58
+              Ален: 0
+
+      - intent: show_score
+        user: |-
+          - счет
+      - action: action_show_score

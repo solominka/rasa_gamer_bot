@@ -12,3 +12,6 @@ python3 -m spacy download ru_core_news_sm
 
 Можно запустить бота в интерактивном режиме: `rasa interactive`. Если возникают ошибки в процессе,
 может помочь такое: `pip3.9 uninstall uvloop`
+
+Запустить тесты:
+`rasa run actions; rasa train; rasa test`
