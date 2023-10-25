@@ -18,13 +18,13 @@ nlu:
       - как начать
   - intent: set_names
     examples: |
-      - имена игроков: [Анна](NAME), [Сергей](NAME), [Мария](NAME)
-      - игроки: [Таня](NAME),[Алена](NAME),[Алина](NAME)
-      - имена: [Настя](NAME), [Ольга](NAME), [Кирилл](NAME), [Павел](NAME), [Женя](NAME),[Таня](NAME)
-      - [Вика](NAME), [Ксения](NAME),[Любовь](NAME), [Надежда](NAME), [Михаил](NAME)
-      - да, давай - [дима](NAME), [егор](NAME),[антон](NAME), [игорь](NAME), [маша](NAME)
-      - [аня](NAME), [катя](NAME), [маша](NAME)
-      - [аня](NAME) [катя](NAME) [маша](NAME)
+      - имена игроков: [Анна](PERSON), [Сергей](PERSON), [Мария](PERSON)
+      - игроки: [Таня](PERSON),[Алена](PERSON),[Алина](PERSON)
+      - имена: [Настя](PERSON), [Ольга](PERSON), [Кирилл](PERSON), [Павел](PERSON), [Женя](PERSON),[Таня](PERSON)
+      - [Вика](PERSON), [Ксения](PERSON),[Любовь](PERSON), [Надежда](PERSON), [Михаил](PERSON)
+      - да, давай - [дима](PERSON), [егор](PERSON),[антон](PERSON), [игорь](PERSON), [маша](PERSON)
+      - [аня](PERSON), [катя](PERSON), [маша](PERSON)
+      - [аня](PERSON) [катя](PERSON) [маша](PERSON)
   - intent: set_game_name
     examples: |
       - [манчкин](GAME_TITLE)
@@ -49,22 +49,25 @@ nlu:
       - моя игра называется [манчкин](GAME_TITLE)
   - intent: add_points
     examples: |
-      - добавь [5](POINTS) [Анне](NAME)
-      - [60](POINTS) баллов [Сергею](NAME)
-      - плюс [1](POINTS) [Марии](NAME)
-      - [Ольге](NAME) [56](POINTS)
-      - [67](POINTS) [Маше](NAME)
-      - [+6](POINTS) [саше](NAME)
+      - добавь [5](POINTS) [Анне](PERSON)
+      - [60](POINTS) баллов [Сергею](PERSON)
+      - плюс [1](POINTS) [Марии](PERSON)
+      - [Ольге](PERSON) [56](POINTS)
+      - [67](POINTS) [Маше](PERSON)
+      - [+6](POINTS) [саше](PERSON)
   - intent: remove_points
     examples: |
-      - отними [5](POINTS) очков у [Анны](NAME)
-      - сними [5](POINTS) [Анне](NAME)
-      - убери [5](POINTS) очков [Рите](NAME)
-      - [-60](POINTS) баллов [Сергею](NAME)
-      - [-60](POINTS) очков [Сергею](NAME)
-      - минус [1](POINTS) [Марии](NAME)
-      - [Ольге](NAME) [-56](POINTS)
-      - [-6](POINTS) [саше](NAME)
+      - отними [5](POINTS) очков у [Анны](PERSON)
+      - вычти [5](POINTS) у [Ольги](PERSON)
+      - убавь [5](POINTS) у [Ольги](PERSON)
+      - отними [5](POINTS) у [Ольги](PERSON)
+      - сними [5](POINTS) [Анне](PERSON)
+      - убери [5](POINTS) очков [Рите](PERSON)
+      - [-60](POINTS) баллов [Сергею](PERSON)
+      - [-60](POINTS) очков [Сергею](PERSON)
+      - минус [1](POINTS) [Марии](PERSON)
+      - [Ольге](PERSON) [-56](POINTS)
+      - [-6](POINTS) [саше](PERSON)
   - intent: goodbye
     examples: |
       - пока

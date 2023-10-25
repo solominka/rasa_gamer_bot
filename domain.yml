@@ -19,7 +19,7 @@ actions:
   - action_add_unknown_player
 
 entities:
-  - NAME
+  - PERSON
   - POINTS
   - GAME_TITLE
 
@@ -37,12 +37,12 @@ slots:
     type: list
     mappings:
       - type: from_entity
-        entity: NAME
+        entity: PERSON
   NAME:
     type: text
     mappings:
       - type: from_entity
-        entity: NAME
+        entity: PERSON
   POINTS:
     type: text
     mappings:
