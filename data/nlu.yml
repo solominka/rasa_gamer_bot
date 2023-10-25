@@ -1,6 +1,15 @@
 version: "3.1"
 
 nlu:
+  - intent: stop
+    examples: |
+      - стоп
+      - остановись
+      - отстань
+      - не знаю
+      - не хочу
+      - перестань
+      - закрой
   - intent: greet
     examples: |
       - привет

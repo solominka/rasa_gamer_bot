@@ -10,6 +10,8 @@ intents:
   - add_unknown_player
   - okay
   - show_score
+  - continue
+  - stop
 
 actions:
   - utter_greet
@@ -19,6 +21,7 @@ actions:
   - action_remove_points
   - action_add_unknown_player
   - action_show_score
+  - validate_form_game_info
 
 entities:
   - PERSON
@@ -51,9 +54,16 @@ slots:
       - type: from_entity
         entity: POINTS
 
+forms:
+  form_game_info:
+    required_slots:
+      - NAMES_LIST
+      - GAME_TITLE
+      - CURRENT_SCORE
+
 responses:
   utter_greet:
-    - text: Привет! Я - бот, который поможет считать очки в настольных играх. Давай начнём с названия игры
+    - text: Привет! Я - бот, который поможет считать очки в настольных играх. Давай начнём с настройки игры
   utter_setup_completed:
     - text: Готово, теперь можно добавлять или вычитать баллы. Сейчас у всех по нулям
   utter_set_game_name:
@@ -64,8 +74,22 @@ responses:
     - text: Я бот, написанный на Rasa.
   utter_okay:
     - text: Хорошо, продолжаем!
+  utter_stop:
+    - text: Хорошо, молчу!
   utter_nlu_fallback:
     - text: "К сожалению, я не понял. Вот примеры команд, которые я знаю:\nДобавь 5 баллов Вике\n-5 Ольге"
+  utter_ask_form_game_info_NAMES_LIST:
+    - text: Назови имена участников игры
+  utter_ask_form_game_info_GAME_TITLE:
+    - text: Придумай название игры
+  utter_ask_continue:
+    - text: Хочешь продолжить заполнять информацию, или остановимся?
+      buttons:
+        - title: "Продолжим"
+          payload: '/continue'
+        - title: "Стоп"
+          payload: '/stop'
+
 
 session_config:
   session_expiration_time: 60

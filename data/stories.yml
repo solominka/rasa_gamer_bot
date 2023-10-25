@@ -1,17 +1,23 @@
 version: "3.1"
 
 stories:
+- story: User interrupts the form and doesn't want to continue
+  steps:
+  - action: form_game_info
+  - active_loop: form_game_info
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: utter_stop
+  - action: action_deactivate_loop
+  - active_loop: null
 
-  - story: Init game
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: set_game_name
-      - slot_was_set:
-        - GAME_TITLE
-      - action: utter_set_game_name
-      - intent: set_names
-      - action: action_set_names
-      - slot_was_set:
-        - NAMES_LIST
-      - action: utter_setup_completed
+- story: User interrupts the form and wants to continue
+  steps:
+  - action: form_game_info
+  - active_loop: form_game_info
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: continue
+  - action: form_game_info
+  - active_loop: form_game_info

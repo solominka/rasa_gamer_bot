@@ -5,30 +5,32 @@ stories:
         user: |-
           привет
       - action: utter_greet
-
-      - intent: set_game_name
-        user: |-
-          [колонизаторы](GAME_TITLE)
-      - slot_was_set:
-          - GAME_TITLE: колонизаторы
-      - action: utter_set_game_name
+      - action: form_game_info
+      - active_loop: form_game_info
 
       - intent: set_names
         user: |-
           [анна](PERSON), [ксения](PERSON), [алена](PERSON)
+
       - slot_was_set:
           - NAMES_LIST:
               - анна
               - ксения
               - алена
       - slot_was_set:
-          - NAME: алена
-      - action: action_set_names
-      - slot_was_set:
           - CURRENT_SCORE:
               Анна: 0
               Ксения: 0
               Ален: 0
+
+      - action: form_game_info
+      - intent: set_game_name
+        user: |-
+          [манчкин](GAME_TITLE)
+      - slot_was_set:
+          - GAME_TITLE: манчкин
+      - action: form_game_info
+      - active_loop: null
       - action: utter_setup_completed
 
       - intent: add_points

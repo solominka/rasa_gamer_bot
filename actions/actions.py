@@ -4,25 +4,29 @@ import string
 import pymorphy2
 from typing import Any, Text, Dict, List
 
-from rasa_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk import Action, FormValidationAction, Tracker
 from rasa_sdk.events import SlotSet, FollowupAction
+from rasa_sdk.executor import CollectingDispatcher
 
 
-class ActionSetNames(Action):
-
+class ValidateGameInfoForm(FormValidationAction):
     def name(self) -> Text:
-        return "action_set_names"
+        return "validate_form_game_info"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    async def extract_CURRENT_SCORE(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
         names_list = tracker.get_slot('NAMES_LIST')
+
+        if tracker.get_slot("requested_slot") != "NAMES_LIST" or names_list is None:
+            return {}
+
         normalized_names = [normalize_name(name) for name in names_list]
 
         dispatcher.utter_message(text="Записал имена " + ", ".join(normalized_names))
 
-        return [SlotSet("CURRENT_SCORE", {name: 0 for name in normalized_names})]
+        return {"CURRENT_SCORE": {name: 0 for name in normalized_names}}
+
 
 class ActionShowScore(Action):
 
@@ -37,6 +41,7 @@ class ActionShowScore(Action):
         dispatcher.utter_message(text="Счет на текущий момент: " + ", ".join(normalize_score(score_list)))
 
         return []
+
 
 class ActionAddPoints(Action):
 
@@ -67,6 +72,7 @@ class ActionAddPoints(Action):
         dispatcher.utter_message(text="Добавил {0} {1} игроку {2}".format(points, get_points_for_number(points), name))
         return [SlotSet("CURRENT_SCORE", current_score)]
 
+
 class ActionRemovePoints(Action):
 
     def name(self) -> Text:
@@ -79,7 +85,8 @@ class ActionRemovePoints(Action):
         points = abs(int(tracker.get_slot('POINTS')))
         current_score = get_current_score(tracker)
 
-        logging.info("ActionRemovePoints: name: {0}, points: {1}, current_score: {2}".format(name, points, current_score))
+        logging.info(
+            "ActionRemovePoints: name: {0}, points: {1}, current_score: {2}".format(name, points, current_score))
 
         if not current_score.__contains__(name):
             dispatcher.utter_message(
@@ -121,12 +128,14 @@ class ActionAddUnknownPlayer(Action):
 
 morph = pymorphy2.MorphAnalyzer(lang='ru')
 
+
 def normalize_score(score: string):
     result = []
     keysList = list(score.keys())
     for el in range(len(keysList)):
         result.append("{0} - {1}".format(keysList[el], score[keysList[el]]))
     return result
+
 
 def normalize_name(name: string):
     return morph.parse(name)[0].normal_form.title()
