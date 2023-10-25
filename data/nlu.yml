@@ -57,20 +57,6 @@ nlu:
       - [+6](POINTS) [саше](PERSON)
   - intent: remove_points
     examples: |
-<<<<<<< HEAD
-      - отними [5](POINTS) очков у [Анны](NAME)
-      - сними [5](POINTS) [Анне](NAME)
-      - убери [5](POINTS) очков [Рите](NAME)
-      - [-60](POINTS) баллов [Сергею](NAME)
-      - [-60](POINTS) очков [Сергею](NAME)
-      - минус [1](POINTS) [Марии](NAME)
-      - [Ольге](NAME) [-56](POINTS)
-      - [-6](POINTS) [саше](NAME)
-  - intent: show_score
-    examples: |
-      - какой счет?
-      - счет
-=======
       - отними [5](POINTS) очков у [Анны](PERSON)
       - вычти [5](POINTS) у [Ольги](PERSON)
       - убавь [5](POINTS) у [Ольги](PERSON)
@@ -82,7 +68,10 @@ nlu:
       - минус [1](POINTS) [Марии](PERSON)
       - [Ольге](PERSON) [-56](POINTS)
       - [-6](POINTS) [саше](PERSON)
->>>>>>> 44090fd585b58aea31c5c591140d1cee51b227df
+  - intent: show_score
+    examples: |
+      - какой счет?
+      - счет
   - intent: goodbye
     examples: |
       - пока
