@@ -115,5 +115,4 @@ models
 /.idea/vcs.xml
 
 venv/
-
-rasa_gamer_bot/
+./__pycache__
