@@ -105,3 +105,9 @@ nlu:
   - regex: POINTS
     examples: |
       - [0-9]+
+  - intent: set_max_score
+    examples: | 
+      - играем до [10](NUMBER)
+      - закончим на [15](NUMBER)
+      - максимум можно набрать [7](NUMBER) очков
+      - надо набрать [12](NUMBER)

@@ -13,6 +13,7 @@ intents:
   - continue
   - stop
   - restart
+  - set_max_score
 
 actions:
   - utter_greet
@@ -24,6 +25,7 @@ actions:
   - action_show_score
   - validate_form_game_info
   - action_restart
+  - action_set_max_score
 
 entities:
   - PERSON
@@ -55,6 +57,12 @@ slots:
     mappings:
       - type: from_entity
         entity: POINTS
+  MAX_SCORE:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: POINTS
+
 
 forms:
   form_game_info:
@@ -62,6 +70,7 @@ forms:
       - NAMES_LIST
       - GAME_TITLE
       - CURRENT_SCORE
+      - MAX_SCORE
 
 responses:
   utter_greet:
@@ -93,7 +102,8 @@ responses:
           payload: '/continue'
         - title: "Стоп"
           payload: '/stop'
-
+  utter_ask_form_game_info_MAX_SCORE:
+    - text: "Сколько очков надо набрать, чтобы играть закончилась?"
 
 session_config:
   session_expiration_time: 60

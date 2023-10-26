@@ -66,3 +66,8 @@ rules:
       - action: utter_greet_on_restart
       - action: form_game_info
       - active_loop: form_game_info
+  
+  - rule: Set max score
+    steps:
+      - intent: set_max_score
+      - action: action_set_max_score

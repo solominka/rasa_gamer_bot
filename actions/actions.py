@@ -28,6 +28,20 @@ class ValidateGameInfoForm(FormValidationAction):
         return {"CURRENT_SCORE": {name: 0 for name in normalized_names}}
 
 
+    async def extract_MAX_SCORE(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        number = tracker.get_slot('MAX_SCORE')
+        score = tracker.get_slot('CURRENT_SCORE')
+
+        if tracker.get_slot("requested_slot") != "MAX_SCORE" or number is None:
+            return {}
+        score["Играем до"] = int(number)
+        dispatcher.utter_message(text=f"Хорошо, будем играть до {number}")
+        return {"CURRENT_SCORE": score}
+
+    
+
 class ActionShowScore(Action):
 
     def name(self) -> Text:
@@ -36,10 +50,12 @@ class ActionShowScore(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        score_list = get_current_score(tracker)
+        score = get_current_score(tracker)
 
-        dispatcher.utter_message(text="Счет на текущий момент: " + ", ".join(normalize_score(score_list)))
-
+        if score is None or score==dict():
+            dispatcher.utter_message(text="Вы еще не начали игру")
+        else: 
+            dispatcher.utter_message(text="Счет на текущий момент \n"+ "\n".join([f"{key}: {value}" for key, value in score.items()]))
         return []
 
 
@@ -87,6 +103,11 @@ class ActionAddPoints(Action):
             return []
         else:
             current_score[name] += points
+            
+        flag, msg, slots_val = is_game_over(tracker, current_score)
+        if flag:
+            dispatcher.utter_message(text=msg)
+            return slots_val
 
         dispatcher.utter_message(text="Добавил {0} {1} игроку {2}".format(points, get_points_for_number(points), name))
         return [SlotSet("CURRENT_SCORE", current_score)]
@@ -148,14 +169,6 @@ class ActionAddUnknownPlayer(Action):
 morph = pymorphy2.MorphAnalyzer(lang='ru')
 
 
-def normalize_score(score: string):
-    result = []
-    keysList = list(score.keys())
-    for el in range(len(keysList)):
-        result.append("{0} - {1}".format(keysList[el], score[keysList[el]]))
-    return result
-
-
 def normalize_name(name: string):
     return morph.parse(name)[0].normal_form.title()
 
@@ -170,3 +183,29 @@ def get_current_score(tracker: Tracker):
     if score is None:
         return {}
     return dict(score)
+
+def is_game_over(tracker: Tracker, score):
+    max_score = tracker.get_slot("CURRENT_SCORE")["Играем до"]
+    print(max_score)
+    print(score)
+    if max_score is None:
+        return False, "", []
+    
+    for key, value in score.items():
+        print(value>= max_score)
+        if key!="Играем до" and value >= int(max_score):
+            logging.info("is_game_over: True")
+            msg = f"Поздравляю, игрок {key} победил! Игра окончена со счетом \n"
+            for key, value in score.items():
+                if key!="Играем до":
+                    msg += f"{key}: {value} \n"
+            return True, msg, [
+                SlotSet("GAME_TITLE", None),
+                SlotSet("CURRENT_SCORE", None),
+                SlotSet("NAMES_LIST", None),
+                SlotSet("NAME", None),
+                SlotSet("POINTS", None),
+                SlotSet("MAX_SCORE", None)
+            ]
+    logging.info("is_game_over: False")
+    return False, "", []
